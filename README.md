@@ -38,7 +38,9 @@ Each video is split into segments of 80 frames. For each frame you get:
 - **Watershed mask** (grayscale class IDs for training)
 
 <p align="center">
-  <img src="assets/endo_examples.png" alt="Dataset examples: raw frames and color masks" width="850">
+  <img src="Images/Fig1.png" alt="Dataset examples: raw frames and color masks" width="850">
+  <img src="Images/Fig2.png" alt="Dataset examples: raw frames and color masks" width="850">
+  <img src="Images/Fig3.png" alt="Dataset examples: raw frames and color masks" width="850">
 </p>
 
 ---
@@ -59,7 +61,7 @@ The dataset provides three mask variants per frame. Use the **watershed** masks 
     <tr>
       <td><strong>Original Image Frame</strong></td>
       <td>This is the raw endoscopic image captured during the surgery.</td>
-      <td><img src="assets/mask_overview.png" alt="Mask overview composite (includes raw, annotation, color, watershed)" width="320"></td>
+      <td><img src="Images/frame_100_endo.png" alt="Mask overview composite (includes raw, annotation, color, watershed)" width="320"></td>
     </tr>
     <tr>
       <td><strong>Annotation Tool Mask</strong></td>
@@ -69,7 +71,7 @@ The dataset provides three mask variants per frame. Use the **watershed** masks 
           <li>Pixel-level expert labels; base for generating other masks.</li>
         </ul>
       </td>
-      <td><!-- The image above already shows this row; keeping a single composite for compactness. --></td>
+     <td><img src="Images/frame_100_endo_mask.png" alt="Mask overview composite (includes raw, annotation, color, watershed)" width="320"></td>
     </tr>
     <tr>
       <td><strong>Color Mask</strong></td>
@@ -79,7 +81,7 @@ The dataset provides three mask variants per frame. Use the **watershed** masks 
           <li>Assigns a unique <em>color</em> to each class for easy visual inspection.</li>
         </ul>
       </td>
-      <td></td>
+      <td><img src="Images/frame_100_endo_color_mask.png" alt="Mask overview composite (includes raw, annotation, color, watershed)" width="320"></td>
     </tr>
     <tr>
       <td><strong>Watershed Mask</strong></td>
@@ -90,7 +92,7 @@ The dataset provides three mask variants per frame. Use the **watershed** masks 
           <li>Use these integer IDs for training (no one-hot in files).</li>
         </ul>
       </td>
-      <td></td>
+       <td><img src="Images/frame_100_endo_watershed_mask.png" alt="Mask overview composite (includes raw, annotation, color, watershed)" width="320"></td>
     </tr>
   </tbody>
 </table>
@@ -140,11 +142,11 @@ From the current configuration (see notebook and `reports/`):
 
 | Metric                 | Score   |
 |------------------------|--------:|
-| Accuracy (Keras)       | 0.9899  |
-| Loss                   | 0.0414  |
-| **Pixel Accuracy**     | **98.94%** |
-| **IoU (mean)**         | **50.19%** |
-| **Dice (F1, mean)**    | **51.67%** |
+| Accuracy (Keras)       | 0.9638  |
+| Loss                   | 0.2697  |
+| **Pixel Accuracy**     | **96.39%** |
+| **IoU (mean)**         | **72.23%** |
+| **Dice (F1, mean)**    | **76.89%** |
 
 > These are baseline results. See the Roadmap for improvement ideas.
 
