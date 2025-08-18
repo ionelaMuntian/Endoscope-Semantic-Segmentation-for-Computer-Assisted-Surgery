@@ -103,23 +103,24 @@ The dataset provides three mask variants per frame. Use the **watershed** masks 
 
 ## Class Information
 
-Below are the **13 classes** used in the watershed masks. (IDs are the pixel values in the grayscale masks; the RGB triplet is the same value repeated on all channels.)
+Below are the **13 classes** used in the watershed masks. (IDs are the pixel values in the grayscale masks; the RGB triplet is the same value repeated across channels.)
 
-| Class ID | Class Name                |
-|:-------:|---------------------------|
-| 0       | Black Background          |
-| 1       | Abdominal Wall            |
-| 2       | Liver                     |
-| 3       | Gastrointestinal Tract    |
-| 4       | Fat                       |
-| 5       | Grasper                   |
-| 6       | Connective Tissue         |
-| 7       | Blood                     |
-| 8       | Cystic Duct               |
-| 9       | L-hook Electrocautery     |
-| 10      | Gallbladder               |
-| 11      | Hepatic Vein              |
-| 12      | Liver Ligament            |
+| Class ID | Class Name             | RGB Hexcode |
+|:-------:|------------------------|:-----------:|
+| 0       | Black Background       | `#505050`   |
+| 1       | Abdominal Wall         | `#111111`   |
+| 2       | Liver                  | `#212121`   |
+| 3       | Gastrointestinal Tract | `#131313`   |
+| 4       | Fat                    | `#121212`   |
+| 5       | Grasper                | `#313131`   |
+| 6       | Connective Tissue      | `#232323`   |
+| 7       | Blood                  | `#242424`   |
+| 8       | Cystic Duct            | `#252525`   |
+| 9       | L-hook Electrocautery  | `#323232`   |
+| 10      | Gallbladder            | `#222222`   |
+| 11      | Hepatic Vein           | `#333333`   |
+| 12      | Liver Ligament         | `#050505`   |
+
 
 <p align="center">
   <img src="assets/class_info.png" alt="Class information reference table (with example hex codes)" width="700">
