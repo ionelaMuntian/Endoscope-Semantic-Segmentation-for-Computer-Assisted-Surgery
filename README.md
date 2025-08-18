@@ -122,10 +122,6 @@ Below are the **13 classes** used in the watershed masks. (IDs are the pixel val
 | 12      | Liver Ligament         | `#050505`   |
 
 
-<p align="center">
-  <img src="assets/class_info.png" alt="Class information reference table (with example hex codes)" width="700">
-</p>
-
 ---
 
 ## Model
@@ -135,6 +131,10 @@ Below are the **13 classes** used in the watershed masks. (IDs are the pixel val
 - **Callback:** `EarlyStopping(patience=5, restore_best_weights=True)`
 - **Metrics during training:** pixel accuracy  
 - **Post-training:** compute **mean IoU** and **Dice (F1)** on the **test** set
+
+<p align="center">
+  <img src="Images/U-Net-convolutional-neural-network-architecture.png" alt="Class information reference table (with example hex codes)" width="700">
+</p>
 
 ---
 
