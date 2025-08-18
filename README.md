@@ -16,57 +16,112 @@ Semantic segmentation of laparoscopic/endoscopic images using a **U-Net** model 
 ---
 
 ## Table of Contents
-- [Project Structure](#project-structure)
 - [Dataset](#dataset)
+- [Mask Overview](#mask-overview)
+- [Class Information](#class-information)
 - [Model](#model)
 - [Results](#results)
 - [Setup](#setup)
 - [Quickstart](#quickstart)
 - [Training & Evaluation](#training--evaluation)
-- [Notes & Roadmap](#notes--roadmap)
 - [Cite & Acknowledgements](#cite--acknowledgements)
 - [Contact](#contact)
 
 ---
 
-## Project Structure
-.
-├─ notebooks/
-│ └─ medical_image_segm.ipynb # end-to-end workflow
-├─ reports/
-│ └─ Endoscope Semantic Segmentation.pdf
-├─ models/ # saved weights (gitignored)
-├─ data/ # dataset (gitignored)
-├─ outputs/ # predictions & figures (gitignored)
-└─ README.md
+## Dataset
+
+Each video is split into segments of 80 frames. For each frame you get:
+- **Raw image frame**
+- **Annotation tool mask** (hand-drawn)
+- **Color mask** (RGB colors per class for visualization)
+- **Watershed mask** (grayscale class IDs for training)
+
+<p align="center">
+  <img src="assets/endo_examples.png" alt="Dataset examples: raw frames and color masks" width="850">
+</p>
 
 ---
 
-## Dataset
-**Source:** *CholecSeg8K* (cholecystectomy scenes). Each video is split into segments of 80 frames. For each frame you get four images:
-- **Raw frame**
-- **Annotation mask (color)** — for visualization
-- **Watershed mask (grayscale IDs)** — **use this for training**
-- *(Sometimes)* additional helper masks
+## Mask Overview
 
-Every frame is pixel-wise annotated for **13 classes** (e.g., abdominal wall, liver, fat, grasper, blood, cystic duct, gallbladder, hepatic vein).
+The dataset provides three mask variants per frame. Use the **watershed** masks (integer IDs) for training.
 
-**Expected local layout (example):**
-data/
-images/
-train/.png
-val/.png
-test/.png
-masks_id/ # grayscale, integer class IDs (training)
-train/.png
-val/.png
-test/.png
-masks_color/ # optional, visualization
-train/.png
-val/.png
-test/*.png
+<table>
+  <thead>
+    <tr>
+      <th>Mask Name</th>
+      <th>Description</th>
+      <th>Image</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Original Image Frame</strong></td>
+      <td>This is the raw endoscopic image captured during the surgery.</td>
+      <td><img src="assets/mask_overview.png" alt="Mask overview composite (includes raw, annotation, color, watershed)" width="320"></td>
+    </tr>
+    <tr>
+      <td><strong>Annotation Tool Mask</strong></td>
+      <td>
+        <ul>
+          <li>Original hand-drawn mask created during annotation.</li>
+          <li>Pixel-level expert labels; base for generating other masks.</li>
+        </ul>
+      </td>
+      <td><!-- The image above already shows this row; keeping a single composite for compactness. --></td>
+    </tr>
+    <tr>
+      <td><strong>Color Mask</strong></td>
+      <td>
+        <ul>
+          <li>Derived from the annotation mask.</li>
+          <li>Assigns a unique <em>color</em> to each class for easy visual inspection.</li>
+        </ul>
+      </td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><strong>Watershed Mask</strong></td>
+      <td>
+        <ul>
+          <li>Also derived from the annotation mask.</li>
+          <li>Assigns a uniform pixel value (same across R,G,B) to represent class IDs.</li>
+          <li>Use these integer IDs for training (no one-hot in files).</li>
+        </ul>
+      </td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
 
-⚠️ Respect the dataset’s license/terms. Keep large data out of version control.
+> The image cell shows a compact composite that contains the example rows (raw, annotation, color, watershed).
+
+---
+
+## Class Information
+
+Below are the **13 classes** used in the watershed masks. (IDs are the pixel values in the grayscale masks; the RGB triplet is the same value repeated on all channels.)
+
+| Class ID | Class Name                |
+|:-------:|---------------------------|
+| 0       | Black Background          |
+| 1       | Abdominal Wall            |
+| 2       | Liver                     |
+| 3       | Gastrointestinal Tract    |
+| 4       | Fat                       |
+| 5       | Grasper                   |
+| 6       | Connective Tissue         |
+| 7       | Blood                     |
+| 8       | Cystic Duct               |
+| 9       | L-hook Electrocautery     |
+| 10      | Gallbladder               |
+| 11      | Hepatic Vein              |
+| 12      | Liver Ligament            |
+
+<p align="center">
+  <img src="assets/class_info.png" alt="Class information reference table (with example hex codes)" width="700">
+</p>
 
 ---
 
@@ -104,8 +159,10 @@ conda create -n endo-seg python=3.10 -y
 conda activate endo-seg
 pip install -U pip
 pip install tensorflow matplotlib numpy opencv-python scikit-image albumentations tqdm jupyter tabulate
+```
 
 **Virtualenv
+```bash
 python -m venv .venv
 # Windows: .venv\Scripts\activate
 source .venv/bin/activate
