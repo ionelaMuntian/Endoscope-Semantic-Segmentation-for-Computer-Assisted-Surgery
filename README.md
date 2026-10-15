@@ -1,4 +1,4 @@
-# Endoscope Semantic Segmentation
+# Endoscope Semantic Segmentation for Computer-Assisted Surgery
 
 Semantic segmentation of laparoscopic/endoscopic images using a **U-Net** model to label tissues, instruments, blood vessels, and other structures. The goal is pixel-accurate scene understanding to support computer-assisted surgery.
 
